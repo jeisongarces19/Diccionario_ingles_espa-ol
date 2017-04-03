@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+#include <stdlib.h>
+
+void main(int argc,char *argv[]){//Buscar archivo//
+    FILE * Diccionario = fopen("Diccionario.txt","r");
+    char guardar[1000];
+    char *palabra=argv[1];//lo que deseo buscar
+    int opcion;
+
+    //printf("Digite la palabra que desea buscar: ");
+    //gets(palabra);//tomo lo que me mandan  escriben.atoi(argv[1]);
+
+    printf("En que idioma esta la palabra ,escriba el numero:\n");
+    printf("opcion 1 :(English)\n");
+    printf("opcion 2 :(Spanish)\n");
+    scanf("%d",&opcion);
+
+    if(Diccionario==NULL){
+        printf("No se pudo leer: :( .....");
+        exit(0);
+    }
+	else{
+
+        char *p2, *p3;
+        int comparar;
+        while(!(feof(Diccionario))){
+            fgets(guardar,1000,Diccionario);//donde se guarda,espacio,de donde lo lee.
+
+			if (opcion == 1){
+				p2 = strtok(guardar, " : ");
+			 	p3 = strtok(NULL, " : ");
+			 	comparar = strcmp(palabra,p2);
+			 	if (comparar == 0){
+			 		printf("%s",p3);
+			 	}
+			}
+			if (opcion == 2){
+				if(strstr(guardar,palabra)!=NULL){//strstr
+                    p2 = strtok(guardar, " : ");
+                    printf("%s\n",p2);
+				}
+			}
+		}
+	}
+	fclose(Diccionario);
+}
